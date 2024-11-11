@@ -8,26 +8,7 @@ pipeline {
                 echo 'Checkout completed.'
             }
         }
-        stage('Install Node.js') {
-            steps {
-                echo 'Starting Node.js installation...'
-                nodejs('NodeJs') {
-                    bat 'npm install'
-                }
-                echo 'Node.js installation completed.'
-            }
-        }
-        stage('Build Angular') {
-            steps {
-                script {
-                    nodejs('NodeJs') {
-                        echo 'Starting Angular build...'
-                        bat 'npm run build --prod'
-                        echo 'Angular build completed.'
-                    }
-                }
-            }
-        }
+        
         stage('SonarQube Analysis') {
             steps {
                 script {
