@@ -19,7 +19,7 @@ pipeline {
                             ${scannerHome}\\bin\\sonar-scanner.bat ^
                             -Dsonar.projectKey=voiture ^
                             -Dsonar.host.url=http://localhost:9001 ^
-                            -Dsonar.login=sqp_2ddb46cd7e4170c82727c2b91993afaddf8064a1 ^
+                            -Dsonar.login=sqp_9dc557fb5de0a58f14b82109bd15b5b5bb10a102 ^
                             -Dsonar.sources=src ^
                             -Dsonar.exclusions="**/node_modules/**"
                         """
