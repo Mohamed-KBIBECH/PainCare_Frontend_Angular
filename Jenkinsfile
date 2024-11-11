@@ -16,7 +16,7 @@ pipeline {
                     withSonarQubeEnv('SonarQube') {
                         echo 'Starting SonarQube analysis...'
                         bat """
-                            ${scannerHome}\\bin\\sonar-scanner.bat -Dsonar.projectKey=voiture2 -Dsonar.host.url=http://localhost:9001/ -Dsonar.login=sqp_2aa162af4bc52da9ed1c5d2bfe0770e3c1ba51f7 -Dsonar.sources=src -Dsonar.exclusions="**/node_modules/**"
+                            ${scannerHome}\\bin\\sonar-scanner.bat -Dsonar.projectKey=voiture2 -Dsonar.host.url=http://localhost:9001/ -Dsonar.login=sqb_d9fad7d9059948a93ec8af27e18c353b1942f598 -Dsonar.sources=src -Dsonar.exclusions="**/node_modules/**"
                         """
                         echo 'SonarQube analysis completed.'
                     }
