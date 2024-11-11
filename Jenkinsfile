@@ -5,12 +5,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/Mohamed-KBIBECH/PainCare_Frontend_Angular.git', branch: 'main'
+                echo 'Checkout completed.'
             }
         }
         stage('Install Node.js') {
             steps {
                 nodejs('NodeJs') {
                     bat 'npm install'
+                    echo 'NPM install completed.'
                 }
             }
         }
@@ -19,8 +21,8 @@ pipeline {
                 script {
                     nodejs('NodeJs') {
                         bat 'npm run build --prod'
+                        echo 'Angular build completed.'
                     }
-                    
                 }
             }
         }
@@ -37,6 +39,7 @@ pipeline {
                             -Dsonar.sources=src ^
                             -Dsonar.exclusions="**/node_modules/**"
                         """
+                        echo 'SonarQube analysis completed.'
                     }
                 }
             }
@@ -46,48 +49,19 @@ pipeline {
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
+                echo 'Quality gate check completed.'
             }
         }
     }
     post {
         always {
-            echo "Analyse terminée, vérifiez SonarQube pour les résultats."
+            echo "Build process completed."
         }
-
         failure {
-            script {
-                emailext(
-                    subject: "Pipeline Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-                    body: """<p>Bonjour,</p>
-                             <p>Le pipeline <strong>${env.JOB_NAME}</strong> a échoué à l'étape de Quality Gate lors de l'exécution de la build numéro <strong>${env.BUILD_NUMBER}</strong>.</p>
-                             <p>Statut de la Quality Gate: <strong style="color: red;">${currentBuild.result}</strong></p>
-                             <p>Vérifiez les détails de la build ici : <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                             <p>Cordialement,</p>
-                             <p>Votre serveur Jenkins</p>""",
-                    to: 'ismailtelhouni123@gmail.com', // Remplacez par les adresses souhaitées
-                    from:"chakra.hs.business@gmail.com",
-                    replyTo:"chakra.hs.business@gmail.com",
-                    mimeType: 'text/html'
-                )
-            }
+            echo "Build failed."
         }
-
         success {
-            script {
-                emailext(
-                    subject: "Pipeline Succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-                    body: """<p>Bonjour,</p>
-                             <p>Le pipeline <strong>${env.JOB_NAME}</strong> s'est terminé avec succès à l'étape de Quality Gate lors de l'exécution de la build numéro <strong>${env.BUILD_NUMBER}</strong>.</p>
-                             <p>Statut de la Quality Gate: <strong style="color: green;">${currentBuild.result}</strong></p>
-                             <p>Vérifiez les détails de la build ici : <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                             <p>Cordialement,</p>
-                             <p>Votre serveur Jenkins</p>""",
-                    to: 'ismailtelhouni123@gmail.com', // Remplacez par les adresses souhaitées
-                    from:"chakra.hs.business@gmail.com",
-                    replyTo:"chakra.hs.business@gmail.com",
-                    mimeType: 'text/html'
-                )
-            }
+            echo "Build succeeded."
         }
     }
 }
