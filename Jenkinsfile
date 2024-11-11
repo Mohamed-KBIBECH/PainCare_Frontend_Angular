@@ -10,16 +10,15 @@ pipeline {
         stage('Install Node.js') {
             steps {
                 nodejs('NodeJs') {
-                    sh 'npm install'
+                    bat 'npm install'
                 }
-                // sh 'npm install'
             }
         }
         stage('Build Angular') {
             steps {
                 script {
                     nodejs('NodeJs') {
-                        sh 'npm run build --prod'
+                        bat 'npm run build --prod'
                     }
                     
                 }
@@ -30,12 +29,12 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarScanner';
                     withSonarQubeEnv('SonarQube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=SonarTest \
-                            -Dsonar.host.url=http://localhost:9001 \
-                            -Dsonar.login=sqp_2ddb46cd7e4170c82727c2b91993afaddf8064a1 \
-                            -Dsonar.sources=src \
+                        bat """
+                            ${scannerHome}\\bin\\sonar-scanner.bat ^
+                            -Dsonar.projectKey=SonarTest ^
+                            -Dsonar.host.url=http://localhost:9001 ^
+                            -Dsonar.login=sqp_2ddb46cd7e4170c82727c2b91993afaddf8064a1 ^
+                            -Dsonar.sources=src ^
                             -Dsonar.exclusions="**/node_modules/**"
                         """
                     }
