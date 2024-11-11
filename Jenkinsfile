@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/ismailtelhouni/PainCare_Frontend_Angular.git', branch: 'main'
+                git url: 'https://github.com/Mohamed-KBIBECH/PainCare_Frontend_Angular.git', branch: 'main'
             }
         }
         stage('Install Node.js') {
@@ -32,9 +32,9 @@ pipeline {
                     withSonarQubeEnv('SonarQube') {
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=Angular_2 \
-                            -Dsonar.host.url=http://localhost:9000 \
-                            -Dsonar.login=sqp_7992fc47e7e98fc3277071f9941f43af0b9d0557 \
+                            -Dsonar.projectKey=SonarTest \
+                            -Dsonar.host.url=http://localhost:9001 \
+                            -Dsonar.login=sqp_2ddb46cd7e4170c82727c2b91993afaddf8064a1 \
                             -Dsonar.sources=src \
                             -Dsonar.exclusions="**/node_modules/**"
                         """
