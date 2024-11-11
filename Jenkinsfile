@@ -17,9 +17,9 @@ pipeline {
                         echo 'Starting SonarQube analysis...'
                         bat """
                             ${scannerHome}\\bin\\sonar-scanner.bat ^
-                            -Dsonar.projectKey=voiture ^
+                            -Dsonar.projectKey=voiture2 ^
                             -Dsonar.host.url=http://localhost:9001 ^
-                            -Dsonar.login=sqp_2ddb46cd7e4170c82727c2b91993afaddf8064a1 ^
+                            -Dsonar.login=sqp_2aa162af4bc52da9ed1c5d2bfe0770e3c1ba51f7 ^
                             -Dsonar.sources=src ^
                             -Dsonar.exclusions="**/node_modules/**"
                         """
